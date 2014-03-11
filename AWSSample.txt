@@ -31,6 +31,7 @@ if (request.getParameter("Role").equals("R"))
 
 if (request.getParameter("Role").equals("S3"))
 {
+
 	 ROLE_ARN = "S3 access ";
 	 ExternalID= "id of ad group";
 } 
