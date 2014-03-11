@@ -1,0 +1,16 @@
+Cookbook Name:: XXX
+# Attributes:: XXX
+
+
+#
+# basic attributes other then jason ###
+#
+default['XXX']['root_group'] = 'XXX'
+default['XXX']['base'] = '/install/XXX'
+default['XXX']['warpath']       = "/war-apps/#{node['XXX']['instancename']}"
+default['XXX']['myinstance']   = "#{node['XXX']['base']}/XXX"
+default['XXX']['dir']   = "#{node['XXX']['myinstance']}/#{node['XXX']['instancename']}"
+default['XXX']['spt']   = "#{node['XXX']['base']}/XXX"
+default['XXX']['pppt']   = "#{node['XXX']['base']}/pppt"
+default['XXX']['user']        = 'XXX'
+default['XXX']['group']       = 'XXX'
