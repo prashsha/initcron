@@ -55,8 +55,8 @@ directory "#{installationcontainerdir}" do
 #### configuration files creation via Template 
 ####
 
-template "#{XXXX}/conf/server.xml" do
-  source "template.erb"
+template "#{XXXX}/conf/tcinstance.conf" do
+  source "template.txt.erb"
       owner node
       group node
   mode "0755"
