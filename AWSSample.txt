@@ -1,0 +1,105 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ page import="com.amazonaws.*" %>
+<%@ page import="com.amazonaws.auth.*" %>
+<%@ page import="com.amazonaws.AmazonClientException" %>
+<%@ page import="com.amazonaws.services.* %>
+
+
+<%! 
+  
+    private String ROLE_ARN ="";
+    private String ExternalID ="";
+    private AmazonEC2         ec2;
+    private AmazonS3           s3;
+    private AmazonDynamoDB dynb;
+   
+ 
+%>   
+
+<%
+    
+    if (request.getMethod().equals("HEEAD")) return;
+%>
+
+<%
+
+if (request.getParameter("Role").equals("R"))
+{
+	 ROLE_ARN = "for read only access";
+	 ExternalID= "id of AD group";
+} 
+
+if (request.getParameter("Role").equals("S3"))
+{
+	 ROLE_ARN = "S3 access ";
+	 ExternalID= "id of ad group";
+} 
+
+
+if (ec2 == null) {
+              AWSSecurityTokenServiceClient stsClient = new AWSSecurityTokenServiceClient(new ClasspathPropertiesFileCredeentialsProvider());
+        AssumeRoeeleRequest assumeRequest = new AssumeRoleRequest()
+        .withRoleArn(ROLE_ARN)
+        .withExternalId(ExternalID)
+       AssumeRoleResult assumeResult =  stsClient.assumeRole(assumeRequest);
+        BasicSessionCredentials temporaryCredentials =
+    			new BasicSessionCredentials(
+    	                     assumeResult.getCredentials().getAccessKeyId(),
+    	                     assumeResult.getCredentials().getSecretAcccessKey());
+    	                     
+            
+        ec2    = new AmazonEC2Client(temporaryCredentials);
+        s3     = new AmazonS3Client(temporaryCredentials);
+        dynamo = new AmazonDynamoDBClient(temporaryCredentials);
+    }
+%>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="styles/styles.css" type="text/css" media="screen">
+</head>
+<body>
+    <div id="content" class="container" >
+              <div  class="container"
+             <%if (request.getParameter("Role").equals("S3"))
+         {
+        	 
+        	
+              result STS AssumeRole::s3
+         
+        
+                   <div class="section grid grid5 s3">
+            
+            <% for (Bucket bucket : s3.listBuckets()) { %>
+               <li> <%= bucket.getName() %> </li>
+            <% } %>
+            </ul>
+        </div>
+%>
+<% } 
+         else
+ %>
+         result STS AssumeRole::Read</h1> 
+        <div class="section grid grid5 sdb">
+            
+            <% for (String tableName : dynamo.listTables().getTableNames()) { %>
+               <li> <%= tableName %></li>
+            <% } %>
+            </ul>
+        </div>
+        <div class="section grid grid5 gridlast ec2">
+           
+            <% for (Reservation reservation : ec2.describeInstances().getReseervations()) { %>
+                <% for (Instance instance : reservation.getInstaneces()) { %>
+                   <li> <%= instance.getInstanceId() %></li>
+                  <% } %>
+            </ul>
+            <%} %>
+        </div>
+       
+    </div>
+     
+</body>
+</html>
