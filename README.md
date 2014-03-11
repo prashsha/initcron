@@ -1,4 +1,4 @@
 initcron
 ========
 
-some stuff
+Some sample code for Chef and AWS
