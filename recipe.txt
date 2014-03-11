@@ -1,0 +1,81 @@
+#
+# Cookbook Name:: XXX
+# Recipe:: default
+
+
+### to check excution node and requested node are same
+
+node['XXX'].each do |group|
+groupvalue['host'].each do |back|
+if "#{back}" == "#{node['host']}"
+
+cookbook_file statment // to move script from files to running location
+
+script "static" do
+  interpreter "bash"
+  user 
+  group 
+  cwd // base directory
+  code <<-EOH
+  --some shell script to download from static location i.e cdn, this should take care of some version match before downloadinf files
+   EOH
+end
+
+
+
+execute 'remove script' do
+command "rm -f #{node['XX']['XXX']}/shell script"
+only_if { ::File.exists?("#{node['XX']['XXX']}/shell script") }
+end
+
+execute 'your server restart' do
+    command "sudo -u user "location of your restart scripts""
+action :nothing
+end
+
+#
+# for directory/file system creation creation 
+#
+directory node['XXX']['XXX'] do
+    mode '0755'
+      owner node['XXX']['user']
+      group node['XXXX']['group']
+end
+
+directory "#{installationcontainerdir}" do
+    mode '0755'
+      owner node['XX']['XXX']
+      group node['XXX']['XXX']
+  end
+
+.........
+
+
+##
+#### configuration files creation via Template 
+####
+
+template "#{XXXX}/conf/server.xml" do
+  source "template.erb"
+      owner node
+      group node
+  mode "0755"
+variables(
+ :X1=> V1,
+ )
+notifies :run, "execute[your server restart]" /// in case any changes in port server need to restart
+end
+
+
+#
+### copy static files
+###
+
+execute 'xml files copy' do
+command "sudo -u user cp -p #{node}/conf/XX.xml #{your directory}/conf"
+not_if { ::File.exists?("#{tyour directory}/conf/xx.xml") }
+end
+
+
+end
+
