@@ -1,0 +1,14 @@
+export XXX-Name=<%= @from jason %>
+
+export APP_USER="XXX"
+export APP_LISTENING_PORT="<%= @from jason%>"
+export PROC_LABEL="<%= @from jason %>"
+export ADDRESS=`hostname`
+
+## Define Paths
+export CATALINA_HOME=/XXXX/<%= from jason] %>
+export JAVA_HOME=/xxx/<%= @from jason %>
+export PATH=/bin:/usr/bin:${JAVA_HOME}/bin
+export CATALINA_BASE="/XXXX/XXX/"
+
+export JAVA_OPTS="-Xms<%= @from jason%>m -Xmx<%= @from jason%>m -server -$PROC_LABEL -DLISTEN_ADDRESS=${ADDRESS-Djavax.net.ssl.trustStore=/XXXX/asdas.ad"
